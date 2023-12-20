@@ -7,6 +7,7 @@ import Edit from "./pages/Edit";
 import Details from "./pages/Details";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import authLoader from "./utils/isLogin";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -21,10 +22,12 @@ const App = () => {
         {
           path: "/create",
           element: <Create />,
+          loader: authLoader
         },
         {
           path: "/edit/:id",
           element: <Edit />,
+          loader: authLoader
         },
         {
           path: "/post/:id",

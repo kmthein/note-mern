@@ -28,7 +28,7 @@ const AuthForm = ({ isLogin }) => {
   
   const navigate = useNavigate();
 
-  const {setToken} = useContext(UserContext);
+  const {updateToken} = useContext(UserContext);
 
   const onSubmitHandler = async (values) => {
     if (isLogin) {
@@ -53,7 +53,7 @@ const AuthForm = ({ isLogin }) => {
         });
       } else {
         console.log(data);
-        setToken(data.token);
+        updateToken(data.token);
       toast.success("Login successful.", {
         position: "top-right",
         autoClose: 5000,

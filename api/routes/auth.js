@@ -62,4 +62,6 @@ router.post(
   authController.login
 );
 
+router.get("/status", authController.checkStatus);
+
 module.exports = router;
