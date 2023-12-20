@@ -11,13 +11,15 @@ export const UserContextProvider = ({children}) => {
     const updateToken = (JWTtoken) => {
         const token = JSON.stringify(JWTtoken);
         localStorage.setItem("token", token);
-        setToken(token);
+        setToken(JWTtoken);
     }
     
     useEffect(() => {
         const storedToken = localStorage.getItem("token");
         if(storedToken) {
             setToken(JSON.parse(storedToken));
+        } else {
+            setToken(null);
         }
     }, [])
 

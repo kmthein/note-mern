@@ -52,7 +52,6 @@ const AuthForm = ({ isLogin }) => {
           theme: "light",
         });
       } else {
-        console.log(data);
         updateToken(data.token);
       toast.success("Login successful.", {
         position: "top-right",

@@ -19,9 +19,8 @@ const Main = () => {
   };
 
   useEffect(() => {
-    console.log("login effect");
     isLogin();
-  }, [token]);
+  }, []);
 
   return (
     <div>

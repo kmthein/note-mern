@@ -41,7 +41,7 @@ exports.createNewNote = (req, res, next) => {
   Note.create({
     title,
     content,
-    cover_image: cover_image ? cover_image.path : "",
+    cover_image: cover_image ? cover_image.path : null,
   })
     .then(() => {
       res.status(201).json({

@@ -45,9 +45,9 @@ const Index = () => {
   const { token } = useContext(UserContext);
   return (
     <div className="px-[20%]">
-      <div className="lg:h-[800px] 2xl:h-[600px]">
+      <div className="">
       <div className="flex flex-wrap gap-20 2xl:gap-20 py-20">
-        {!loading && notes.length > 0 ? (
+        {!loading || notes.length > 0 ? (
           <>
             {notes.map((note) => (
               <Note key={note._id} note={note} getAllNotes={getAllNotes} />

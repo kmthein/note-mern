@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 
 const Navbar = () => {
@@ -15,7 +15,17 @@ const Navbar = () => {
         <Link to="/">
           <span className=" text-4xl font-semibold">NOTES</span>
         </Link>
-        {!token ? (
+        {token ? (
+          <div className="flex gap-8">
+          <button
+            type="button"
+            className=" hover:text-gray-300 cursor-pointer"
+            onClick={logoutHandler}
+          >
+            Logout
+          </button>
+        </div>
+        ) : (
           <div className="flex gap-8">
             <Link to={"/login"} className=" hover:text-gray-300">
               Login
@@ -23,16 +33,6 @@ const Navbar = () => {
             <Link to={"/register"} className=" hover:text-gray-300">
               Register
             </Link>
-          </div>
-        ) : (
-          <div className="flex gap-8">
-            <button
-              type="button"
-              className=" hover:text-gray-300 cursor-pointer"
-              onClick={logoutHandler}
-            >
-              Logout
-            </button>
           </div>
         )}
       </div>
