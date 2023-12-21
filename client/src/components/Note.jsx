@@ -14,6 +14,28 @@ const Note = ({ note, getAllNotes }) => {
 
   const { token } = useContext(UserContext);
 
+  const handleDelete = async () => {
+    const localToken = JSON.parse(localStorage.getItem("token"));
+
+    if (!localToken) {
+      localStorage.removeItem("token");
+      window.location.reload(false);
+    }
+  
+    const response = await fetch(`${import.meta.env.VITE_API}/status`, {
+      headers: {
+        Authorization: `Bearer ${localToken.token}`,
+      },
+    });
+ 
+    if(response.status === 401) {
+      localStorage.removeItem("token");
+      window.location.reload(false);
+    } else {
+        deleteNote();
+    }
+  }
+
   const deleteNote = async () => {
     const response = await fetch(`${import.meta.env.VITE_API}/delete/${_id}`, {
       method: "DELETE",
@@ -68,7 +90,7 @@ const Note = ({ note, getAllNotes }) => {
               <TrashIcon
                 width={"22"}
                 className="text-red-600 hover:w-[23px]"
-                onClick={deleteNote}
+                onClick={handleDelete}
                 title="delete"
               />
               <Link to={`/edit/${_id}`}>

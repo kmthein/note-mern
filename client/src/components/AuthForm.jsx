@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserContext } from "../contexts/UserContext";
+import { BeatLoader } from "react-spinners";
 
 const AuthForm = ({ isLogin }) => {
   const AuthSchema = Yup.object({
@@ -108,7 +109,7 @@ const AuthForm = ({ isLogin }) => {
         validationSchema={AuthSchema}
         onSubmit={onSubmitHandler}
       >
-        {({ errors, touched, values }) => (
+        {({ errors, touched, values, isSubmitting }) => (
           <Form>
             <div className="mt-10">
               <h2 className=" font-semibold text-2xl text-center">
@@ -156,10 +157,13 @@ const AuthForm = ({ isLogin }) => {
             <div className="flex justify-end mt-8">
               <button
                 type="submit"
-                className=" bg-violet-900 text-white py-2 px-4 rounded-sm hover:bg-violet-500"
+                className=" bg-violet-900 text-white h-10 px-4 rounded-sm hover:bg-violet-500"
                 title="Save Note"
+                disabled={isSubmitting}
               >
-                {isLogin ? "Login" : "Register"}
+                {
+                  isLogin ? (isSubmitting ? <BeatLoader color="#fff" size={6} /> : "Login") : (isSubmitting ? <BeatLoader color="#fff" size={6} /> : "Register")
+                }
               </button>
             </div>
             {isLogin ? (

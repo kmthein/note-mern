@@ -5,22 +5,22 @@ import { ToastContainer } from 'react-toastify'
 import { UserContext } from '../contexts/UserContext'
 
 const Main = () => {
-  const { token } = useContext(UserContext);  
-  const isLogin = async () => {
-    const response = await fetch(`${import.meta.env.VITE_API}/status`, {
-      headers: {
-        Authorization: `Bearer ${token.token}`,
-      },
-    });
-    console.log(response);
-    if(response.status === 401) {
-        redirect("/");
-    }
-  };
+  // const { token } = useContext(UserContext);  
+  // const isLogin = async () => {
+  //   const response = await fetch(`${import.meta.env.VITE_API}/status`, {
+  //     headers: {
+  //       Authorization: `Bearer ${token.token}`,
+  //     },
+  //   });
+  //   console.log(response);
+  //   if(response.status === 401) {
+  //       redirect("/");
+  //   }
+  // };
 
-  useEffect(() => {
-    isLogin();
-  }, []);
+  // useEffect(() => {
+  //   isLogin();
+  // }, []);
 
   return (
     <div>

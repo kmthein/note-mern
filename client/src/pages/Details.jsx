@@ -4,7 +4,7 @@ import {
   CalendarIcon,
 } from "@heroicons/react/24/solid";
 import { Link, useParams } from "react-router-dom";
-import { SyncLoader } from "react-spinners";
+import { ClipLoader, SyncLoader } from "react-spinners";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import formatISO9075 from "date-fns/formatISO9075";
 
@@ -13,10 +13,14 @@ const Details = () => {
 
   const [note, setNote] = useState();
 
+  const [loading, setLoading] = useState(false);
+
   const getNote = async () => {
+    setLoading(true);
     const response = await fetch(`${import.meta.env.VITE_API}/notes/${id}`);
     const data = await response.json();
     setNote(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -25,7 +29,7 @@ const Details = () => {
 
   return (
     <div className="px-[20%] 2xl:px-[30%]">
-      {note ? (
+      {!loading && note ? (
         <>
           <div className="flex justify-end mt-10">
             <Link to={"/"}>
@@ -70,7 +74,7 @@ const Details = () => {
         </>
       ) : (
         <div className="flex justify-center w-full h-[50vh] items-center">
-          <SyncLoader color="#7d269d" speedMultiplier={0.7} />
+          <ClipLoader color="#7d269d" speedMultiplier={0.7} />
         </div>
       )}
     </div>

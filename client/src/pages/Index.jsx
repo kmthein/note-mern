@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Note from "../components/Note";
 import AddBtn from "../components/AddBtn";
-import { SyncLoader } from "react-spinners";
+import { ClipLoader, SyncLoader } from "react-spinners";
 import { UserContext } from "../contexts/UserContext";
 
 const Index = () => {
@@ -55,7 +55,7 @@ const Index = () => {
           </>
         ) : (
           <div className="flex justify-center w-full h-[50vh] items-center">
-            <SyncLoader color="#7d269d" speedMultiplier={0.7} />
+            <ClipLoader color="#7d269d" speedMultiplier={0.7} />
           </div>
         )}
         {

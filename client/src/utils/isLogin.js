@@ -14,6 +14,8 @@ const isLogin = async () => {
     });
  
     if(response.status === 401) {
+      localStorage.removeItem("token");
+      window.location.reload(false);
         return redirect("/");
     } else {
         return null;
