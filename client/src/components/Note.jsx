@@ -13,17 +13,29 @@ const Note = ({ note, getAllNotes }) => {
   const navigate = useNavigate();
 
   const { token } = useContext(UserContext);
-  
+
   const deleteNote = async () => {
     const response = await fetch(`${import.meta.env.VITE_API}/delete/${_id}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token.token}`,
       },
     });
     if (response.status == 204) {
       getAllNotes();
       toast.success("Note deleted!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      const errMsg = await response.json();
+      toast.error(errMsg, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -51,18 +63,22 @@ const Note = ({ note, getAllNotes }) => {
           </p>
         </div>
         <div className=" flex justify-end gap-2 mb-4 cursor-pointer">
-          <TrashIcon
-            width={"22"}
-            className="text-red-600 hover:w-[23px]"
-            onClick={deleteNote}
-            title="delete"
-          />
-          <Link to={`/edit/${_id}`}>
-            <PencilSquareIcon
-              width={"22"}
-              className="text-blue-800 hover:w-[23px]"
-            />
-          </Link>
+          {token && author.toString() == token.userId && (
+            <>
+              <TrashIcon
+                width={"22"}
+                className="text-red-600 hover:w-[23px]"
+                onClick={deleteNote}
+                title="delete"
+              />
+              <Link to={`/edit/${_id}`}>
+                <PencilSquareIcon
+                  width={"22"}
+                  className="text-blue-800 hover:w-[23px]"
+                />
+              </Link>
+            </>
+          )}
           <Link to={`/post/${_id}`}>
             <EyeIcon width={"22"} className="text-gray-500 hover:w-[23px]" />
           </Link>

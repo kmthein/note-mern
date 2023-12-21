@@ -54,7 +54,7 @@ const Details = () => {
               <div className="text-sm">
                 <p className="flex items-center gap-1 justify-end">
                   <UserCircleIcon width={"28"} className=" text-gray-500" />
-                  <span className="text-gray-600">{note.author}</span>
+                  <span className="text-gray-600">{note.author.username}</span>
                 </p>
                 <p className="flex items-center gap-2 justify-end">
                   <CalendarIcon width={"25"} className=" text-gray-500" />

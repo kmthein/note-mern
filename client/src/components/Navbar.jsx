@@ -17,6 +17,7 @@ const Navbar = () => {
         </Link>
         {token ? (
           <div className="flex gap-8">
+          <p>Hello, {token.user_email}</p>
           <button
             type="button"
             className=" hover:text-gray-300 cursor-pointer"

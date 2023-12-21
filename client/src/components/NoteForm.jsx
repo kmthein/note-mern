@@ -73,7 +73,7 @@ const NoteForm = ({ isCreate }) => {
     content: Yup.string()
       .min(10, "Content must have at least 10 characters.")
       .required("Content must be required."),
-    cover_image: Yup.mixed()
+    cover_image: !isCreate ? null : Yup.mixed()
       .nullable()
       .test(
         "FILE_FORMAT",
@@ -104,11 +104,10 @@ const NoteForm = ({ isCreate }) => {
       method,
       body: formData,
       headers: {
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token.token}`
       },
     });
     const data = await response.json();
-    console.log(data);
     let alertMsg;
     if (response.status == 201) {
       alertMsg = "New note successfully created!";

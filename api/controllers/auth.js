@@ -49,7 +49,7 @@ exports.login = (req, res, next) => {
                 throw new Error("Wrong email or password.");
             } else {
                 const token = jwt.sign({email: user.email, userId: user._id}, process.env.JWT_KEY, { expiresIn: "1h" })
-                return res.status(200).json({token, userId: user._id, message: "Login successful."})
+                return res.status(200).json({token, userId: user._id, user_email: user.email})
             }
         }).catch((err) => {
             return res.status(422).json({
@@ -68,19 +68,20 @@ exports.login = (req, res, next) => {
 
 exports.checkStatus = (req, res, next) => {
   const authHeader = req.get("Authorization");
-    if(!authHeader) {
-        return res.status(401).json({message: "Not Authenticated."})
+  if (!authHeader) {
+    return res.status(401).json({ message: "Not authenticated." });
+  }
+
+  const token = authHeader.split(" ")[1];
+  try {
+    const tokenMatch = jwt.verify(token, process.env.JWT_KEY);
+    if (!tokenMatch) {
+      return res.status(401).json({ message: "Not authenticated." });
     }
-    const token = authHeader.split(" ")[1];
-    try {
-        const tokenMatch = jwt.verify(token, process.env.JWT_KEY);
-        if(!tokenMatch) {
-            return res.status(401).json({message: "Not Authenticated."})
-        }
-        req.userId = tokenMatch.userId;
-        res.status(201).json("Authenticated.")
-        next(); 
-    } catch (err) {
-        return res.status(401).json({message: "Not Authenticated."})        
-    }
-}
+    req.userId = tokenMatch.userId;
+    res.json("ok");
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Not authenticated." });
+  }
+};

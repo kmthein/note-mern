@@ -6,13 +6,13 @@ import { UserContext } from '../contexts/UserContext'
 
 const Main = () => {
   const { token } = useContext(UserContext);  
-  
   const isLogin = async () => {
     const response = await fetch(`${import.meta.env.VITE_API}/status`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token.token}`,
       },
     });
+    console.log(response);
     if(response.status === 401) {
         redirect("/");
     }
